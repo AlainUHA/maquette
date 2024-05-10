@@ -1,10 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer un niveau{% endblock %}
+{% block title %}Modifier un niveau{% endblock %}
 
 {% block body %}
-    <h1>Créer un niveau pour ce bloc</h1>
-    <p><a class="btn btn-secondary" href="{{ path('blocs.voir', {id: bloc.mention.id}) }}">Retour</a></p>
-
+    <h1>Modifier le niveau</h1>
+    <a class="btn btn-secondary" href="{{ path('blocs.voir', {id: niveau.bloc.mention.id}) }}">Retour</a>
+<h2>Données du niveau</h2>
 {{ form(form) }}
+
+    <h2>Apprentissages critiques</h2>
+    <ul>
+        {% for ac in niveau.apprentissageCritiques %}
+            <li>{{ ac.libelle }} <a href="{{ path('ac.modifier',{id:niveau.id}) }}">Modifier</a> <a href="{{ path('ac.supprimer',{id:niveau.id}) }}">Supprimer</a></li>
+        {% endfor %}
+    </ul>
+
+    <h2>Zone de danger</h2>
+    <p>Attention, la suppression du niveau est immédiate et irréversible.</p>
+    <form action="{{ path('niveau.supprimer', {'id': niveau.id}) }}" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="token" value="{{ csrf_token('delete' ~ niveau.id) }}">
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+    </form>
+
+
 {% endblock %}

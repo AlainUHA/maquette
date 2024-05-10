@@ -1,8 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateurs{% endblock %}
+{% block title %}Modifier mention{% endblock %}
 
 {% block body %}
+    <h1>Modifier la mention</h1>
 
 {{ form(form) }}
+    <h2>Zone de danger</h2>
+    <p>Attention, la suppression de la mention est immédiate et irréversible.</p>
+    <form action="{{ path('mention.supprimer', {'id': mention.id}) }}" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="token" value="{{ csrf_token('delete' ~ mention.id) }}">
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+    </form>
+
+
+
+
+
+{% endblock %}
+
+{% block sidebar_title %}
+    <h2>Modifier la mention</h2>
+{% endblock %}
+
+{% block sidebar %}
+    <p>
+        Vous pouvez modifier la mention ici.
+        Attention, la suppression d'une mention est immédiate, irréversible et sans confirmation. Elle supprimera aussi tous les éléments liés (parcours, ...).
+    </p>
 {% endblock %}

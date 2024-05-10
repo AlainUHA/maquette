@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parcours.titre }}{% endblock %}
+{% block title %}Modifier Bloc{% endblock %}
 
 {% block body %}
-        <h1>{{ parcours.titre }}</h1>
+        <h1>Modifier le bloc</h1>
 {{ form(form) }}
-    <form action="{{ path('parcours.supprimer', {'id': parcours.id}) }}" method="post">
+    <form action="{{ path('bloc.supprimer', {'id': bloc.id}) }}" method="post">
                 <input type="hidden" name="_method" value="DELETE">
-            <input type="hidden" name="token" value="{{ csrf_token('delete' ~ parcours.id) }}">
+            <input type="hidden" name="token" value="{{ csrf_token('delete' ~ bloc.id) }}">
             <button type="submit" class="btn btn-danger">Supprimer</button>
         </form>
 

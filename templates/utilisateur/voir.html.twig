@@ -4,8 +4,11 @@
 
 {% block body %}
 
-<h1>Liste des utilisateurs</h1>
-{% for utilisateur in utilisateurs %}
-    <p>{{ utilisateur.nom }} {{ utilisateur.prenom }} {{ utilisateur.mail }}</p>
-{% endfor %}
+<h1>{{ utilisateur.prenom }} {{ utilisateur.nom }}</h1>
+    <p>{{ utilisateur.mail }}</p>
+<p><a href="{{ path('utilisateur.modifier',{id:utilisateur.id}) }}">Modifier</a></p>
+    <form action="{{ path('utilisateur.supprimer',{id:utilisateur.id}) }}" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" value="Supprimer">
+    </form>
 {% endblock %}

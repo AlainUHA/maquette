@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Saisie des maquettes{% endblock %}
+
+{% block body %}
+    <h1>Saisie des maquettes</h1>
+
+<p>Ce site permet de saisir les maquettes pour l'accréditation 2024-2028</p>
+    <p><a href="{{ path('mentions.voir') }}">Voir les mentions</a> auxquelles j'ai accès.</p>
+    <h3>Ressources utiles :</h3>
+    <ul>
+        <li>La lettre de cadrage</li>
+        <li>Le cours Moodle sur l'APC avec sa FAQ</li>
+    </ul>
+{% endblock %}
+
+{% block sidebar_title %}
+<h3>Bienvenue</h3>
+{% endblock %}
+
+{% block sidebar %}
+    <p>Ce bloc d'aide est contextuel à chaque page.</p>
+    <p>Pour créer votre maquette de niveau 2, créez dans l'ordre :</p>
+    <ul>
+        <li>La mention</li>
+        <li>Les parcours de la mention</li>
+        <li>Les blocs de compétences</li>
+        <li>La maquette</li>
+    </ul>
+
+{% endblock %}

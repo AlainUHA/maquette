@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des blocs{% endblock %}
+{% block title %}Référentiel{% endblock %}
 
 {% block body %}
-    <h1>Liste des blocs, niveaux et apprentissages critiques de la mention</h1>
-    <p><a class="btn btn-primary" href="{{ path('bloc.creer',{id:mention.id}) }}">Ajouter un bloc</a>
-    <a class="btn btn-secondary" href="{{ path('mention.voir',{id:mention.id}) }}">Retour</a>
-    </p>
+    <h1>Référentiel</h1>
+    <a class="btn btn-secondary" href="{{ path('mention.voir',{id:parcours.mention.id}) }}">Retour</a>
     {% for bloc in blocs %}
         <div class="card">
             <div class="card-header">
@@ -14,32 +12,27 @@
             </div>
             <div class="card-body">
                 <p class="card-text">
-                    <a href="{{ path('bloc.modifier', {'id': bloc.id}) }}">Modifier</a> |
-                    <a href="{{ path('niveau.creer', {'id': bloc.id}) }}">Ajouter Niveau</a>
                     <div class="card-group">
-                    {% for niveau in bloc.niveaux %}
+                    {% for n in bloc.niveaux %}
+                       {% for np in niveaux %}
+                        {% if n == np %}
                         <div class="card">
                             <div class="card-header">
-                                Niveau {{ niveau.niveau }} - {{ niveau.description }} <a href="{{ path('niveau.modifier',{id:niveau.id}) }}">Modifier</a>
+                                Niveau {{ n.niveau }} - {{ n.description }}
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Apprentissages critiques</h5>
                                 <div class="card-text">
                                     <ul>
-                                        {% for ac in niveau.apprentissageCritiques %}
+                                        {% for ac in n.apprentissageCritiques %}
                                         <li>{{ ac.libelle }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    <p><a href="{{ path('ac.creer', {'id': niveau.id}) }}">+ Apprentissage Critique</a></p>
-                                    <p><strong>Parcours :</strong></p>
-                                    <ul>
-                                    {% for parcours in niveau.parcours %}
-                                            <li>{{ parcours.titre }}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
+                        {% endfor %}
                     {% endfor %}
                     </div>
                 </p>
@@ -50,16 +43,10 @@
 
 {% endblock %}
 {% block sidebar_title %}
-<h2>Les blocs de la mention</h2>
+<h2>Le référentiel du parcours</h2>
 {% endblock %}
 {% block sidebar %}
-<p>On construit ici l'ensemble des blocs de la mention, tous parcours confondus.
-    Cela permet de créer les blocs communs à différents parcours d'être créé une seule fois.</p>
-    <p>Pour chaque bloc de compétences :</p>
-        <ul>
-            <li>créer des niveaux (en général, 1 niveau par année de formation, mais d'autres modèles sont possibles</li>
-            <li>ajouter des apprentissages critiques</li>
-            <li>associer des parcours</li>
-        </ul>
-    <p>Pour modifier ou supprimer un apprentissage critique, modifiez le niveau concerné.</p>
+<p>Cette page affiche le référentiel attaché au parcours.</p>
+    <p>Vous ne pouvez pas modifier le référentiel sur cette page.</p>
+    <p>Pour modifier le référentiel, affichez la page de la <a href="{{ path('mention.voir',{id:parcours.mention.id}) }}">mention</a>, puis cliquez sur "<a href="{{ path('blocs.voir',{id:parcours.mention.id}) }}">Gérer les blocs</a>".</p>
 {% endblock %}

@@ -1,9 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer un parcours{% endblock %}
+{% block title %}Créer un bloc{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouveau parcours</h1>
+    <h1>Créer un nouveau bloc</h1>
 
 {{ form(form) }}
+{% endblock %}
+
+{% block sidebar_title %}
+<h2>Créer un bloc</h2>
+{% endblock %}
+
+{% block sidebar %}
+    <p>Un bloc de compétences est délivré en fin de formation.
+        Son libellé ne change pas selon l'année de formation, il reste identique de la L1 à la L3, ou du M1 au M2.
+        On créera par contre des niveaux pour indiquer une progression entre les années de formation.</p>
 {% endblock %}

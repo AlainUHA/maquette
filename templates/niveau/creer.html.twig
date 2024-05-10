@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer une mention{% endblock %}
+{% block title %}Créer un niveau{% endblock %}
 
 {% block body %}
-    <h1>Créer une nouvelle mention</h1>
+    <h1>Créer un niveau pour ce bloc</h1>
+    <p><a class="btn btn-secondary" href="{{ path('blocs.voir', {id: bloc.mention.id}) }}">Retour</a></p>
 
 {{ form(form) }}
 {% endblock %}

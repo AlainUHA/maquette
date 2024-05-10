@@ -1,13 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des mentions{% endblock %}
+{% block title %}Parcours{% endblock %}
 
 {% block body %}
+    <h1>{{ parcours.titre }}</h1>
+    <p><a class="btn btn-secondary" href="{{ path('mention.voir',{id:parcours.mention.id}) }}">Retour</a></p>
+    <p>Responsable : {{ parcours.resp.prenom }} {{ parcours.resp.nom }}</p>
+    <p>Référent du parcours étudiant : {{ parcours.referent }}</p>
+    <p>Durée minimale du stage : {{ parcours.minStage }}</p>
+    <p>Durée maximale du stage : {{ parcours.maxStage }}</p>
 
-    <h1>Liste des mentions</h1>
-    <p><a href="{{ path('mention.creer') }}">Créer une mention</a></p>
-    {% for mention in mentions %}
-        <p><a href="{{ path('mention.voir',{id:mention.id}) }}">{{ mention.titre }}</a> <a href="{{ path('mention.modifier',{id:mention.id}) }}">(Modifier)</a></p>
-{% endfor %}
+    <h2>Référentiel</h2>
+    <p><a href="{{ path('parcours.voirReferentiel',{id:parcours.id}) }}">Consulter</a></p>
+
+    <h2>Maquette</h2>
+    <p>à créer</p>
+
+    <h2>Zone de danger</h2>
+    <p>Attention, la suppression du parcours est immédiate et irréverscible.</p>
+    <form action="{{ path('parcours.supprimer', {'id': parcours.id}) }}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="token" value="{{ csrf_token('delete' ~ parcours.id) }}">
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+        </form>
+    <p><em>Parcours créé le {{ parcours.createdAt |date('d-m-Y H:i:s')}} et modifié le {{ parcours.modifiedAt |date('d-m-Y H:i:s')}} </em></p>
 
 {% endblock %}

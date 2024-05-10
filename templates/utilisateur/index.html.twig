@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+
+<h1>Liste des utilisateurs</h1>
+<p><a href="{{ path('utilisateur.creer') }}">Ajouter un utilisateur</a></p>
+{% for utilisateur in utilisateurs %}
+    <p>{{ utilisateur.nom }} {{ utilisateur.prenom }} {{ utilisateur.mail }} <a href="{{ path('utilisateur.voir',{id:utilisateur.id})}}">Voir</a></p>
+{% endfor %}
+{% endblock %}

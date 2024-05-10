@@ -3,14 +3,51 @@
 {% block title %}Liste des mentions{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+        <h1>{{ mention.grade.grade }} {{ mention.titre }}</h1>
+    <p><a class="btn btn-primary" href="{{ path('parcours.creer',{id:mention.id}) }}">Créer un parcours</a>
+        <a class="btn btn-primary" href="{{ path('blocs.voir',{id:mention.id}) }}">Gérer les blocs</a>
+        <a class="btn btn-secondary" href="{{ path('mentions.voir') }}">Retour</a>
+    </p>
+    <p><strong>Responsable :</strong> {{ mention.resp.prenom }} {{ mention.resp.nom }}</p>
+    <p><strong>Fiche RNCP :</strong> {{ mention.rncp }} <a href="https://www.francecompetences.fr/recherche/rncp/{{ mention.rncp }}/"> (voir)</a></p>
+    <p><strong>Parcours de cette mention :</strong></p>
+    {% if parcours is empty %}
+        <p>Aucun parcours pour cette mention</p>
+    {% else %}
+        <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Responsable</th>
+            <th scope="col">Référent parcours étudiant</th>
+            <th scope="col">Durée minimale du stage</th>
+            <th scope="col">Durée maximale du stage</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for p in parcours %}
+            <tr>
+                <td>{{ p.titre }}</td>
+                <td>{{ p.resp.prenom }} {{ p.resp.nom }}</td>
+                <td>{{ p.referent}}</td>
+                <td>{{ p.minStage }}</td>
+                <td>{{ p.maxStage }}</td>
+                <td><a href="{{ path('p.voir',{id:p.id}) }}">Voir</a> <a href="{{ path('parcours.modifier',{id:p.id}) }}">Modifier</a></td>
+            </tr>
+    {% endfor %}
+        </table>
+    {% endif %}
 
-<div class="example-wrapper">
-    <h1>Liste des mentions</h1>
+{% endblock %}
 
+{% block sidebar_title %}
+    <h2>Gérer la mention</h2>
+{% endblock %}
 
-</div>
+{% block sidebar %}
+    <p>Cette page affiche les paramètres de la mention : le nom du responsable, la fiche RNCP, les parcours de cette mention.</p>
+<p>Pour créer le référentiel de chaque parcours, vous devez d'abord créer les blocs de compétences.
+    Créez tous les blocs de tous les parcours dans cette page de la mention. Cela permet de ne saisir les blocs communs à plusieurs parcours qu'une fois.</p>
+    <p>Vous pourrez ensuite afficher les référentiels de chaque parcours.</p>
 {% endblock %}

@@ -1,15 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Parcours{% endblock %}
+{% block title %}Consulter Bloc{% endblock %}
 
 {% block body %}
-        <h1>{{ parcours.titre }}</h1>
-<p>Responsable : {{ parcours.resp.prenom }} {{ parcours.resp.nom }}</p>
-    <p>Référent du parcours étudiant : {{ parcours.referent }}</p>
-    <form action="{{ path('parcours.supprimer', {'id': parcours.id}) }}" method="post">
-                <input type="hidden" name="_method" value="DELETE">
-            <input type="hidden" name="token" value="{{ csrf_token('delete' ~ parcours.id) }}">
-            <button type="submit" class="btn btn-danger">Supprimer</button>
-        </form>
+
+{{ bloc.libelle }}
 
 {% endblock %}

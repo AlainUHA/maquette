@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des mentions{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des mentions</h1>
+    <p><a class="btn btn-primary" href="{{ path('mention.creer') }}">Créer une mention</a></p>
+    <table class="table table-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Composante</th>
+                <th>Libellé</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mention in mentions %}
+                <tr>
+                    <td>{{ mention.composante.libelle }}</td>
+                    <td>{{ mention.titre }}</td>
+                    <td>
+                        <a href="{{ path('mention.voir',{id:mention.id}) }}" class="btn btn-primary">Voir</a>
+                        <a href="{{ path('mention.modifier',{id:mention.id}) }}" class="btn btn-secondary">Modifier</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block sidebar_title %}
+<h2>Les mentions</h2>
+{% endblock %}
+
+{% block sidebar %}
+<p>Vous voyez les mentions dont vous êtes le responsable, ainsi que celles dont vous êtes responsable de l'un de ses parcours.</p>
+<p>Commencez par créer votre mention.</p>
+    <p>Vous pourrez ensuite créer les parcours et permettre aux responsables de ces parcours de les compléter.</p>
+    <p>La modification de l'ensemble des éléments est possible par les responsables des mentions et parcours.</p>
+{% endblock %}

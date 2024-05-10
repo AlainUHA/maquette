@@ -1,9 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer un bloc{% endblock %}
+{% block title %}Créer un apprentissage critique{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouveau bloc</h1>
+    <h1>Créer un apprentissage critique</h1>
 
 {{ form(form) }}
+{% endblock %}
+
+{% block sidebar_title %}
+<h2>Apprentissage critique</h2>
+{% endblock %}
+
+{% block sidebar %}
+    <p>L'apprentissage critique est lié à un bloc d'un niveau donné. Il permet de définir des compétences à acquérir pour ce bloc.</p>
+    <p>Pour un même bloc de niveau donné, il peut être différent selon le parcours.</p>
+    <p>Exemple :</p>
+    <p>Les blocs de niveaux 1 (en L1) sont souvent identiques dans tous les parcours. Mais les blocs de niveaux 3 (en L3) peuvent être différents selon les parcours. Ils contiennent des apprentissages critiques adaptés à chaque parcours.</p>
 {% endblock %}
