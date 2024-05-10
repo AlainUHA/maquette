@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des mentions{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des mentions</h1>
+    <p><a href="{{ path('mention.creer') }}">Créer une mention</a></p>
+    {% for mention in mentions %}
+        <p><a href="{{ path('mention.voir',{id:mention.id}) }}">{{ mention.titre }}</a> <a href="{{ path('mention.modifier',{id:mention.id}) }}">(Modifier)</a></p>
+{% endfor %}
+
+{% endblock %}

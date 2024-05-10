@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+
+<h1>{{ utilisateur.prenom }} {{ utilisateur.nom }}</h1>
+    <p>{{ utilisateur.mail }}</p>
+<p><a href="{{ path('utilisateur.modifier',{id:utilisateur.id}) }}">Modifier</a></p>
+{% endblock %}
