@@ -1,14 +1,32 @@
-version: '3'
+version: '3.7'
 
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: 'mysql:latest'
-    environment:
-        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
-      # You should definitely change the password in production
-        MYSQL_DATABASE: ${MYSQL_DATABASE:-app}
-        MYSQL_USER: ${MYSQL_USER:-app}
-        MYSQL_PASSWORD: ${MYSQL_PASSWORD:-app}
+  ###> doctrine/doctrine-bundle ###
+  db_maquette:
+    image: mariadb:latest
+    volumes:
+      - database_data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3320:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: maquette
+      MYSQL_USER: maquette
+      MYSQL_PASSWORD: maquette
+
+  maquette:
+    build: .
+    volumes:
+      - .:/var/www/
+    ports:
+      - "9965:80"
+    depends_on:
+      - db_maquette
+      # this command is used to execute installations that must be performed on live server
+    command: >
+      bash -c "composer require symfony/webpack-encore-bundle symfony/stimulus-bundle symfony/ux-autocomplete symfony/security-bundle symfonycasts/verify-email-bundle symfony/serializer && npm install && npm run build && php bin/console doctrine:schema:update --force  && apache2-foreground"
+volumes:
+  ###> doctrine/doctrine-bundle ###
+  database_data:
+###< doctrine/doctrine-bundle ###
+
