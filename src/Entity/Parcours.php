@@ -173,7 +173,7 @@ class Parcours
     {
         if (!$this->niveaux->contains($niveau)) {
             $this->niveaux->add($niveau);
-            $niveau->addParcour($this);
+            $niveau->addParcours($this);
         }
 
         return $this;
@@ -182,7 +182,7 @@ class Parcours
     public function removeNiveau(Niveau $niveau): static
     {
         if ($this->niveaux->removeElement($niveau)) {
-            $niveau->removeParcour($this);
+            $niveau->removeParcours($this);
         }
 
         return $this;

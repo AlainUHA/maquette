@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\ApprentissageCritique;
-use App\Entity\Bloc;
 use App\Entity\Niveau;
 use App\Form\ApprentissageCritiqueType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,13 +20,15 @@ class ApprentissageCritiqueController extends AbstractController
         $form = $this->createForm(ApprentissageCritiqueType::class, $ac);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $bloc = $niveau->getBloc();
-            $ac->setBloc($bloc);
             $ac->setNiveau($niveau);
             $em->persist($ac);
             $em->flush();
             $this->addFlash('success', 'Apprentissage critique créé avec succès');
-            return $this->redirectToRoute('blocs.voir', ['id' => $bloc->getMention()->getId()]);
+            return $this->redirectToRoute('blocs.voir', ['id' => $ac->getNiveau()
+                                                                                    ->getCompetence()
+                                                                                    ->getBloc()
+                                                                                    ->getMention()
+                                                                                    ->getId()]);
         }
         return $this->render('apprentissage_critique/creer.html.twig', [
             'controller_name' => 'ApprentissageCritiqueController',
@@ -43,7 +44,7 @@ class ApprentissageCritiqueController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             $this->addFlash('success', 'Apprentissage critique modifié avec succès');
-            return $this->redirectToRoute('blocs.voir', ['id' => $ac->getBloc()->getMention()->getId()]);
+            return $this->redirectToRoute('blocs.voir', ['id' => $ac->getNiveau()->getCompetence()->getBloc()->getMention()->getId()]);
         }
         return $this->render('apprentissage_critique/modifier.html.twig', [
             'controller_name' => 'ApprentissageCritiqueController',
@@ -57,6 +58,6 @@ class ApprentissageCritiqueController extends AbstractController
         $em->remove($ac);
         $em->flush();
         $this->addFlash('success', 'Apprentissage critique supprimé avec succès');
-        return $this->redirectToRoute('blocs.voir', ['id' => $ac->getBloc()->getMention()->getId()]);
+        return $this->redirectToRoute('blocs.voir', ['id' => $ac->getNiveau()->getCompetence()->getBloc()->getMention()->getId()]);
     }
 }

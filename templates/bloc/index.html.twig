@@ -16,8 +16,11 @@
                 <p class="card-text">
                     <a href="{{ path('bloc.modifier', {'id': bloc.id}) }}">Modifier</a> |
                     <a href="{{ path('niveau.creer', {'id': bloc.id}) }}">Ajouter Niveau</a>
+                </p>
                     <div class="card-group">
-                    {% for niveau in bloc.niveaux %}
+                    {# dump(bloc.competences) #}
+                    {% for competence in bloc.competences %}
+                        {% for niveau in competence.niveaux %}
                         <div class="card">
                             <div class="card-header">
                                 Niveau {{ niveau.niveau }} - {{ niveau.description }} <a href="{{ path('niveau.modifier',{id:niveau.id}) }}">Modifier</a>
@@ -26,7 +29,8 @@
                                 <h5 class="card-title">Apprentissages critiques</h5>
                                 <div class="card-text">
                                     <ul>
-                                        {% for ac in niveau.apprentissageCritiques %}
+                                        {# dump(niveau) #}
+                                        {% for ac in niveau.apprentissagesCritiques %}
                                         <li>{{ ac.libelle }}</li>
                                         {% endfor %}
                                     </ul>
@@ -40,9 +44,9 @@
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                     {% endfor %}
                     </div>
-                </p>
             </div>
         </div>
         <br />

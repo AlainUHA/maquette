@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\ApprentissageCritique;
 use App\Entity\Bloc;
+use App\Entity\Competence;
 use App\Entity\Mention;
-use App\Entity\Niveau;
 use App\Form\BlocType;
 use App\Repository\BlocRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,18 +25,27 @@ class BlocController extends AbstractController
         $blocs = $repository->findBy(['mention' => $mention]);
         $maxNiveau = 0;
         $ac = [];
+        $competences = [];
         foreach ($blocs as $bloc) {
-            $niveaux = $em->getRepository(Niveau::class)->findBy(['bloc' => $bloc]);
-            foreach ($niveaux as $niveau) {
-                if ($niveau->getNiveau() > $maxNiveau) {
-                    $maxNiveau = $niveau->getNiveau();
-                }
+            $competencesDuBloc = $em->getRepository(Competence::class)->findBy(['bloc' => $bloc]);
+            $competences[] = $competencesDuBloc;
+            foreach ($competencesDuBloc as $competence) {
+                //dd($competence);
+                    $niveaux = $competence->getNiveaux();
+                    foreach ($niveaux as $niveau) {
+                        if ($niveau->getNiveau() > $maxNiveau) {
+                            $maxNiveau = $niveau->getNiveau();
+                        }
+                        $ac[] = $em->getRepository(ApprentissageCritique::class)->findBy(['niveau' => $niveau]);
+                    }
             }
-            $ac[] = $em->getRepository(ApprentissageCritique::class)->findBy(['bloc' => $bloc]);
+
         }
+        //dd($competences);
         return $this->render('bloc/index.html.twig', [
             'controller_name' => 'BlocController',
             'blocs' => $blocs,
+            'competences' => $competences,
             'mention' => $mention,
             'maxNiveau' => $maxNiveau,
             'ac' => $ac,

@@ -4,14 +4,14 @@
 
 {% block body %}
     <h1>Modifier le niveau</h1>
-    <a class="btn btn-secondary" href="{{ path('blocs.voir', {id: niveau.bloc.mention.id}) }}">Retour</a>
+    <a class="btn btn-secondary" href="{{ path('blocs.voir', {id: niveau.competence.bloc.mention.id}) }}">Retour</a>
 <h2>Données du niveau</h2>
 {{ form(form) }}
 
     <h2>Apprentissages critiques</h2>
     <ul>
-        {% for ac in niveau.apprentissageCritiques %}
-            <li>{{ ac.libelle }} <a href="{{ path('ac.modifier',{id:niveau.id}) }}">Modifier</a> <a href="{{ path('ac.supprimer',{id:niveau.id}) }}">Supprimer</a></li>
+        {% for ac in niveau.apprentissagesCritiques %}
+            <li>{{ ac.libelle }} <a href="{{ path('ac.modifier',{id:ac.id}) }}">Modifier</a> <a href="{{ path('ac.supprimer',{id:ac.id}) }}">Supprimer</a></li>
         {% endfor %}
     </ul>
 
