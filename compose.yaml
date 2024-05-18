@@ -9,6 +9,9 @@ services:
     ports:
       - "3320:3306"
     environment:
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3320
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: maquette
       MYSQL_USER: maquette
@@ -23,8 +26,8 @@ services:
     depends_on:
       - db_maquette
       # this command is used to execute installations that must be performed on live server
-    command: >
-      bash -c "composer require symfony/webpack-encore-bundle symfony/stimulus-bundle symfony/ux-autocomplete symfony/security-bundle symfonycasts/verify-email-bundle symfony/serializer && npm install && npm run build && php bin/console doctrine:schema:update --force  && apache2-foreground"
+    #command: >
+      #bash -c "php bin/console doctrine:schema:update --force  && apache2-foreground"
 volumes:
   ###> doctrine/doctrine-bundle ###
   database_data:

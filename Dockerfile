@@ -5,12 +5,10 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions pdo_mysql intl
 
-RUN curl -sS https://getcomposer.org/installer | php -- --disable-tls && \ 
+RUN curl -sS https://getcomposer.org/installer | php -- --disable-tls && \
     mv composer.phar /usr/local/bin/composer
 
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
-
-RUN apt-get install -y nodejs zip unzip git
+RUN apt-get install -y zip unzip git
 
 RUN npm install -g npm
 

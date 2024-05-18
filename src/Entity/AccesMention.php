@@ -15,15 +15,15 @@ class AccesMention
 
     #[ORM\ManyToOne(inversedBy: 'accesMentions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?utilisateur $utilisateur = null;
+    private ?Utilisateur $utilisateur = null;
 
     #[ORM\ManyToOne(inversedBy: 'accesMentions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?mention $mention = null;
+    private ?Mention $mention = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?role $role = null;
+    private ?Role $role = null;
 
     public function getId(): ?int
     {
@@ -37,36 +37,36 @@ class AccesMention
         return $this;
     }
 
-    public function getUtilisateur(): ?utilisateur
+    public function getUtilisateur(): ?Utilisateur
     {
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?utilisateur $utilisateur): static
+    public function setUtilisateur(?Utilisateur $utilisateur): static
     {
         $this->utilisateur = $utilisateur;
 
         return $this;
     }
 
-    public function getMention(): ?mention
+    public function getMention(): ?Mention
     {
         return $this->mention;
     }
 
-    public function setMention(?mention $mention): static
+    public function setMention(?Mention $mention): static
     {
         $this->mention = $mention;
 
         return $this;
     }
 
-    public function getRole(): ?role
+    public function getRole(): ?Role
     {
         return $this->role;
     }
 
-    public function setRole(?role $role): static
+    public function setRole(?Role $role): static
     {
         $this->role = $role;
 

@@ -20,7 +20,7 @@ class Parcours
 
     #[ORM\ManyToOne(inversedBy: 'parcours')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?mention $mention = null;
+    private ?Mention $mention = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $referent = null;
@@ -76,12 +76,12 @@ class Parcours
         return $this;
     }
 
-    public function getMention(): ?mention
+    public function getMention(): ?Mention
     {
         return $this->mention;
     }
 
-    public function setMention(?mention $mention): static
+    public function setMention(?Mention $mention): static
     {
         $this->mention = $mention;
 

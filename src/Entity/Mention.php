@@ -20,11 +20,11 @@ class Mention
 
     #[ORM\ManyToOne(inversedBy: 'mentions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?utilisateur $resp = null;
+    private ?Utilisateur $resp = null;
 
     #[ORM\ManyToOne(inversedBy: 'mentions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?grade $grade = null;
+    private ?Grade $grade = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -88,24 +88,24 @@ class Mention
         return $this;
     }
 
-    public function getResp(): ?utilisateur
+    public function getResp(): ?Utilisateur
     {
         return $this->resp;
     }
 
-    public function setResp(?utilisateur $resp): static
+    public function setResp(?Utilisateur $resp): static
     {
         $this->resp = $resp;
 
         return $this;
     }
 
-    public function getGrade(): ?grade
+    public function getGrade(): ?Grade
     {
         return $this->grade;
     }
 
-    public function setGrade(?grade $grade): static
+    public function setGrade(?Grade $grade): static
     {
         $this->grade = $grade;
 
