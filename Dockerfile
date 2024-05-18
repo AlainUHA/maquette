@@ -8,9 +8,9 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
 RUN curl -sS https://getcomposer.org/installer | php -- --disable-tls && \
     mv composer.phar /usr/local/bin/composer
 
-RUN apt-get install -y zip unzip git
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
 
-RUN npm install -g npm
+RUN apt-get install -y zip unzip git
 
 COPY . /var/www/
 
