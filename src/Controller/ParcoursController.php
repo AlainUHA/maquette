@@ -44,7 +44,7 @@ class ParcoursController extends AbstractController
             $parcours->setModifiedAt(new \DateTimeImmutable());
             $em->flush();
             $this->addFlash('success', 'Parcours modifié avec succès');
-            return $this->redirectToRoute('parcours.voir', ['id' => $parcours->getId()]);
+            return $this->redirectToRoute('mention.voir', ['id' => $parcours->getMention()->getId()]);
         }
         return $this->render('parcours/modifier.html.twig', [
             'parcours' => $parcours,
@@ -65,7 +65,7 @@ class ParcoursController extends AbstractController
             $em->persist($parcours);
             $em->flush();
             $this->addFlash('success', 'Parcours créé avec succès');
-            return $this->redirectToRoute('parcours.voir', ['id' => $parcours->getId()]);
+            return $this->redirectToRoute('mention.voir', ['id' => $parcours->getMention()->getId()]);
         }
         return $this->render('parcours/creer.html.twig', [
             'form' => $form,
@@ -86,10 +86,12 @@ class ParcoursController extends AbstractController
     {
         $niveaux = $parcours->getNiveaux();
         $blocs = [];
+        $competences = [];
         foreach ($niveaux as $niveau) {
-            if (!in_array($niveau->getBloc(), $blocs))
+            if (!in_array($niveau->getCompetence(), $competences))
                 {
-                    $blocs[] = $niveau->getBloc();
+                    $competences[] = $niveau->getCompetence();
+                    $blocs[] = $niveau->getCompetence()->getBloc();
                 }
         }
         return $this->render('parcours/referentiel.html.twig', [
@@ -97,6 +99,7 @@ class ParcoursController extends AbstractController
             'parcours' => $parcours,
             'blocs' => $blocs,
             'niveaux' => $niveaux,
+            'competences' => $competences,
         ]);
     }
 }

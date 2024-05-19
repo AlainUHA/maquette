@@ -18,7 +18,7 @@
             {% for mention in mentions %}
                 <tr>
                     <td>{{ mention.composante.libelle }}</td>
-                    <td>{{ mention.titre }}</td>
+                    <td>{{ mention.grade.grade }} {{ mention.titre }}</td>
                     <td>
                         <a href="{{ path('mention.voir',{id:mention.id}) }}" class="btn btn-primary">Voir</a>
                         <a href="{{ path('mention.modifier',{id:mention.id}) }}" class="btn btn-secondary">Modifier</a>

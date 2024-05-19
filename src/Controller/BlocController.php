@@ -19,10 +19,10 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class BlocController extends AbstractController
 {
     #[Route('/mention/{id}/blocs', name: 'blocs.voir')]
-    public function voirBlocs(BlocRepository $repository,Mention $mention, EntityManagerInterface $em): Response
+    public function voirBlocs(Mention $mention, EntityManagerInterface $em): Response
     {
 
-        $blocs = $repository->findBy(['mention' => $mention]);
+        $blocs = $mention->getBlocs();
         $maxNiveau = 0;
         $ac = [];
         $competences = [];
@@ -39,7 +39,6 @@ class BlocController extends AbstractController
                         $ac[] = $em->getRepository(ApprentissageCritique::class)->findBy(['niveau' => $niveau]);
                     }
             }
-
         }
         //dd($competences);
         return $this->render('bloc/index.html.twig', [
@@ -92,7 +91,7 @@ class BlocController extends AbstractController
             $em->persist($bloc);
             $em->flush();
             $this->addFlash('success', 'Bloc créé avec succès');
-            return $this->redirectToRoute('bloc.voir', ['id' => $bloc->getId()]);
+            return $this->redirectToRoute('competence.creervide', ['id' => $bloc->getId()]);
         }
         return $this->render('bloc/creer.html.twig', [
             'form' => $form,
@@ -102,9 +101,10 @@ class BlocController extends AbstractController
     #[Route('/mention/bloc/{id}/supprimer', name: 'bloc.supprimer', requirements: ['id' => '\d+'])]
     public function supprimerBloc(Bloc $bloc, EntityManagerInterface $em): Response
     {
+        $id = $bloc->getMention()->getId();
         $em->remove($bloc);
         $em->flush();
         $this->addFlash('success', 'Bloc supprimé avec succès');
-        return $this->redirectToRoute('blocs.voir');
+        return $this->redirectToRoute('blocs.voir', ['id' => $id]);
     }
 }

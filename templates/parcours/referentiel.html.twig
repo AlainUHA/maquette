@@ -4,42 +4,44 @@
 
 {% block body %}
     <h1>Référentiel</h1>
-    <a class="btn btn-secondary" href="{{ path('mention.voir',{id:parcours.mention.id}) }}">Retour</a>
+    <p><a class="btn btn-secondary" href="{{ path('mention.voir',{id:parcours.mention.id}) }}">Retour</a></p>
     {% for bloc in blocs %}
+        <br />
         <div class="card">
             <div class="card-header">
                 <h2>{{ bloc.libelle }}</h2>
             </div>
             <div class="card-body">
-                <p class="card-text">
+            {% for competence in bloc.competences %}
+                <p class="card-text">{{ competence.libelle }}</p>
                     <div class="card-group">
-                    {% for n in bloc.niveaux %}
-                       {% for np in niveaux %}
-                        {% if n == np %}
-                        <div class="card">
-                            <div class="card-header">
-                                Niveau {{ n.niveau }} - {{ n.description }}
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Apprentissages critiques</h5>
-                                <div class="card-text">
+                    {% for n in competence.niveaux %}
+                        {% for np in niveaux %}
+                            {% if n == np %}
+                            <div class="card">
+                                <div class="card-header">
+                                    Niveau {{ n.niveau }} - {{ n.description }}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Apprentissages critiques</h5>
+                                    <div class="card-text">
                                     <ul>
-                                        {% for ac in n.apprentissageCritiques %}
+                                        {% for ac in n.apprentissagesCritiques %}
                                         <li>{{ ac.libelle }}</li>
                                         {% endfor %}
                                     </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        {% endif %}
+                            {% endif %}
                         {% endfor %}
                     {% endfor %}
                     </div>
-                </p>
+            {% endfor %}
             </div>
         </div>
-        <br />
     {% endfor %}
+        <br />
 
 {% endblock %}
 {% block sidebar_title %}
