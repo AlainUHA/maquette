@@ -4,5 +4,23 @@
 
 {% block body %}
     <h1>Modifier la compétence</h1>
+    <p><a href="{{ path('blocs.voir',{id:competence.bloc.mention.id}) }}" class="btn btn-secondary">Retour</a></p>
     {{ form(form)}}
+
+{% if competence.bloc.competences | length >1 %}
+<h2>Zone de danger</h2>
+<p>Attention, la suppression de la compétence est immédiate et irréversible.</p>
+<form action="{{ path('competence.supprimer', {'id': competence.id}) }}" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="token" value="{{ csrf_token('delete' ~ competence.id) }}">
+    <button type="submit" class="btn btn-danger">Supprimer</button>
+</form>
+{% endif %}
+
+{% endblock %}
+
+{% block sidebar %}
+    <p>Vous devez toujours avoir au moins une compétence. Si vous utilisez le modèle du LABSET, vous n'avez pas de compétences.
+        Dans ce cas, le libellé de la compétence doit être vide.</p>
+    <p>Vous pouvez supprimer une compétence uniquement si vous en avez plusieurs. Au minimum, vous devez conserver 1 compétence dont le libellé est vide.</p>
 {% endblock %}

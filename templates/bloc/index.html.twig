@@ -3,24 +3,37 @@
 {% block title %}Liste des blocs{% endblock %}
 
 {% block body %}
-    <h1>Liste des blocs, niveaux et apprentissages critiques de la mention</h1>
-    <p><a class="btn btn-primary" href="{{ path('bloc.creer',{id:mention.id}) }}">Ajouter un bloc</a>
+    <h1>Liste des blocs, compétences, niveaux et apprentissages critiques de la mention</h1>
+    <p>
+    <a class="btn btn-primary" href="{{ path('bloc.creer',{id:mention.id}) }}">Ajouter un bloc</a>
     <a class="btn btn-secondary" href="{{ path('mention.voir',{id:mention.id}) }}">Retour</a>
     </p>
     {% for bloc in blocs %}
         <div class="card">
             <div class="card-header">
-                <h2>{{ bloc.libelle }}</h2>
-                <a href="{{ path('bloc.modifier', {'id': bloc.id}) }}">Modifier</a> |
-                <a href="{{ path('niveau.creer', {'id': bloc.competences.0.id}) }}">Ajouter Niveau</a>
+                <h2 id="bloc-{{ bloc.id }}">{{ bloc.libelle }}</h2>
+                <a href="{{ path('bloc.modifier', {'id': bloc.id}) }}">Modifier</a>
+                {% if bloc.competences.0.libelle is not same as(NULL) %}
+                    <a href="{{ path('competence.creer', {'id': bloc.id}) }}">Créer compétence</a>
+                {% endif %}
             </div>
-            <div class="card-body">
-                <p class="card-text">
 
+            <div class="card-body">
+            {% for competence in bloc.competences %}
+                <p class="card-text">
+                {% if competence.libelle is same as(NULL) %}
+                    <p class="small">Pas de compétences pour ce bloc <span class="badge bg-secondary">modèle LABSET</span></p>
+                    <a href="{{ path('niveau.creer', {'id': bloc.competences.0.id}) }}">Ajouter Niveau</a>
+                    <a href="{{ path('competence.modifier', {'id': bloc.competences.0.id}) }}">Créer compétence</a>
+                {% else %}
+                <h3>{{ competence.libelle }}</h3>
+                    <a href="{{ path('niveau.creer', {'id': competence.id}) }}">+ Niveau</a>
+                    <a href="{{ path('competence.modifier', {'id': competence.id}) }}">Modifier</a>
+                {% endif %}
                 </p>
                     <div class="card-group">
                     {# dump(bloc.competences) #}
-                    {% for competence in bloc.competences %}
+
                         {% for niveau in competence.niveaux %}
                         <div class="card">
                             <div class="card-header">
@@ -46,11 +59,15 @@
                             </div>
                         </div>
                         {% endfor %}
-                    {% endfor %}
                     </div>
+
+            {% endfor %}
             </div>
         </div>
         <br />
+
+
+
     {% endfor %}
 
 {% endblock %}

@@ -28,11 +28,15 @@ class ApprentissageCritiqueController extends AbstractController
                                                                                     ->getCompetence()
                                                                                     ->getBloc()
                                                                                     ->getMention()
-                                                                                    ->getId()]);
+                                                                                    ->getId(),
+                    '_fragment' => 'bloc-'.$ac->getNiveau()->getCompetence()->getBloc()->getId()]
+
+            );
         }
         return $this->render('apprentissage_critique/creer.html.twig', [
             'controller_name' => 'ApprentissageCritiqueController',
             'form' => $form,
+            'niveau' => $niveau,
         ]);
     }
 

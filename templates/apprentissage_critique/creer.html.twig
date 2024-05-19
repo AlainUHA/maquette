@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>Créer un apprentissage critique</h1>
+    <p><a href="{{ path('blocs.voir',{id:niveau.competence.bloc.mention.id}) }}" class="btn btn-secondary">Retour</a></p>
 
 {{ form(form) }}
 {% endblock %}

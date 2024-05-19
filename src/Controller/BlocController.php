@@ -95,6 +95,7 @@ class BlocController extends AbstractController
         }
         return $this->render('bloc/creer.html.twig', [
             'form' => $form,
+            'mention' => $mention,
         ]);
     }
 

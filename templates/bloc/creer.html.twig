@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>Créer un nouveau bloc</h1>
+    <p><a href="{{ path('blocs.voir',{id:mention.id}) }}" class="btn btn-secondary">Retour</a></p>
 
 {{ form(form) }}
 {% endblock %}

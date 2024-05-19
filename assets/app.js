@@ -8,6 +8,7 @@ import './bootstrap.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@fontsource-variable/roboto-condensed/index.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import './styles/app.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

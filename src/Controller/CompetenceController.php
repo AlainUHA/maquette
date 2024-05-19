@@ -22,15 +22,6 @@ class CompetenceController extends AbstractController
         ]);
     }
 
-    #[Route('/competence/{id}', name: 'competence.voir', requirements: ['id' => '\d+'])]
-    public function voirCompetence(Competence $competence, CompetenceRepository $repository): Response
-    {
-        return $this->render('competence/voir.html.twig', [
-            'controller_name' => 'CompetenceController',
-            'competence' => $competence,
-        ]);
-    }
-
     #[Route('/competence/{id}/modifier', name: 'competence.modifier', requirements: ['id' => '\d+'])]
     public function modifierCompetence(Competence $competence,Request $request, EntityManagerInterface $em): Response
     {
@@ -44,6 +35,7 @@ class CompetenceController extends AbstractController
         return $this->render('competence/modifier.html.twig', [
             'controller_name' => 'CompetenceController',
             'competence' => $competence,
+            'form' => $form,
         ]);
     }
 

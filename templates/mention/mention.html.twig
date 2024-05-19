@@ -33,7 +33,10 @@
                 <td>{{ p.referent}}</td>
                 <td>{{ p.minStage }}</td>
                 <td>{{ p.maxStage }}</td>
-                <td><a href="{{ path('p.voir',{id:p.id}) }}">Voir</a> <a href="{{ path('parcours.modifier',{id:p.id}) }}">Modifier</a></td>
+                <td><a href="{{ path('p.voir',{id:p.id}) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir"><i class="bi bi-eye" style="color:black"></i></a>
+                    <a href="{{ path('parcours.voirReferentiel',{id:p.id}) }}" title="Référentiel du parcours"><i class="bi bi-journal-text" style="color:black"></i></a>
+                    <a href="{{ path('parcours.modifier',{id:p.id}) }}" title="Modifier le parcours">
+                        <i class="bi bi-pencil-square" style="color:black"></i></a></td>
             </tr>
     {% endfor %}
         </table>

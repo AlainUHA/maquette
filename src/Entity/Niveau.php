@@ -6,6 +6,7 @@ use App\Repository\NiveauRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: NiveauRepository::class)]
 class Niveau
@@ -16,6 +17,7 @@ class Niveau
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\Range(min: 1, max: 6)]
     private ?int $niveau = null;
 
     #[ORM\Column(length: 255)]
