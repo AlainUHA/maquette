@@ -6,6 +6,7 @@
         <h1>{{ mention.grade.grade }} {{ mention.titre }}</h1>
     <p><a class="btn btn-primary" href="{{ path('parcours.creer',{id:mention.id}) }}">Créer un parcours</a>
         <a class="btn btn-primary" href="{{ path('blocs.voir',{id:mention.id}) }}">Gérer les blocs</a>
+        <a class="btn btn-primary" href="{{ path('ressources.voir',{id:mention.id}) }}">Gérer les ressources</a>
         <a class="btn btn-secondary" href="{{ path('mentions.voir') }}">Retour</a>
     </p>
     <p><strong>Responsable :</strong> {{ mention.resp.prenom }} {{ mention.resp.nom }}</p>
