@@ -29,6 +29,7 @@ class RessourceMType extends AbstractType
                 'choice_label' => 'libelle',
                 'placeholder' => 'Choisir une typologie',
                 'label' => 'Typologie',
+                'attr' => ['class' => 'w220'],
             ])
             ->add('ci', null, [
                 'label' => 'Heures CI',
