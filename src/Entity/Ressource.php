@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RessourceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,9 +22,6 @@ class Ressource
 
     #[ORM\Column(length: 150)]
     private ?string $libelle = null;
-
-    #[ORM\Column(length: 20, nullable: true)]
-    private ?string $typologie = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 1, nullable: true)]
     private ?string $ci = null;
@@ -72,6 +71,27 @@ class Ressource
     #[ORM\Column(nullable: true)]
     private ?bool $ctCollaboratif = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $hybride = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $commun = null;
+
+    /**
+     * @var Collection<int, UE>
+     */
+    #[ORM\ManyToMany(targetEntity: UE::class, mappedBy: 'ressources')]
+    private Collection $UEs;
+
+    #[ORM\ManyToOne(inversedBy: 'ressources')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Typologie $typologie = null;
+
+    public function __construct()
+    {
+        $this->UEs = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,18 +124,6 @@ class Ressource
     public function setLibelle(string $libelle): static
     {
         $this->libelle = $libelle;
-
-        return $this;
-    }
-
-    public function getTypologie(): ?string
-    {
-        return $this->typologie;
-    }
-
-    public function setTypologie(?string $typologie): static
-    {
-        $this->typologie = $typologie;
 
         return $this;
     }
@@ -308,6 +316,69 @@ class Ressource
     public function setCtCollaboratif(?bool $ctCollaboratif): static
     {
         $this->ctCollaboratif = $ctCollaboratif;
+
+        return $this;
+    }
+
+    public function isHybride(): ?bool
+    {
+        return $this->hybride;
+    }
+
+    public function setHybride(?bool $hybride): static
+    {
+        $this->hybride = $hybride;
+
+        return $this;
+    }
+
+    public function isCommun(): ?bool
+    {
+        return $this->commun;
+    }
+
+    public function setCommun(?bool $commun): static
+    {
+        $this->commun = $commun;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UE>
+     */
+    public function getUEs(): Collection
+    {
+        return $this->UEs;
+    }
+
+    public function addUE(UE $uE): static
+    {
+        if (!$this->UEs->contains($uE)) {
+            $this->UEs->add($uE);
+            $uE->addRessource($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUE(UE $uE): static
+    {
+        if ($this->UEs->removeElement($uE)) {
+            $uE->removeRessource($this);
+        }
+
+        return $this;
+    }
+
+    public function getTypologie(): ?Typologie
+    {
+        return $this->typologie;
+    }
+
+    public function setTypologie(?Typologie $typologie): static
+    {
+        $this->typologie = $typologie;
 
         return $this;
     }

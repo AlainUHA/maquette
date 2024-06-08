@@ -39,10 +39,17 @@ class Niveau
     #[ORM\ManyToMany(targetEntity: Parcours::class, inversedBy: 'niveaux')]
     private Collection $parcours;
 
+    /**
+     * @var Collection<int, UE>
+     */
+    #[ORM\OneToMany(targetEntity: UE::class, mappedBy: 'niveau')]
+    private Collection $UEs;
+
     public function __construct()
     {
         $this->apprentissagesCritiques = new ArrayCollection();
         $this->parcours = new ArrayCollection();
+        $this->UEs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,6 +149,36 @@ class Niveau
     public function removeParcours(Parcours $p): static
     {
         $this->parcours->removeElement($p);
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UE>
+     */
+    public function getUEs(): Collection
+    {
+        return $this->UEs;
+    }
+
+    public function addUE(UE $uE): static
+    {
+        if (!$this->UEs->contains($uE)) {
+            $this->UEs->add($uE);
+            $uE->setNiveau($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUE(UE $uE): static
+    {
+        if ($this->UEs->removeElement($uE)) {
+            // set the owning side to null (unless already changed)
+            if ($uE->getNiveau() === $this) {
+                $uE->setNiveau(null);
+            }
+        }
+
         return $this;
     }
 }

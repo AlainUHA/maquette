@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ressource{% endblock %}
+
+{% block body %}
+    <h1>Modifier la ressource</h1>
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.libelle) }}
+    {{ form_row(form.commun) }}
+    {{ form_row(form.typologie) }}
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>CI</th>
+                <th>CM</th>
+                <th>TD</th>
+                <th>TP</th>
+                <th>Hybride</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Volumes horaires :</td>
+                <td>{{ form_widget(form.ci) }}{{ form_errors(form.ci) }}</td>
+                <td>{{ form_widget(form.cm) }}</td>
+                <td>{{ form_widget(form.td) }}</td>
+                <td>{{ form_widget(form.tp) }}</td>
+                <td>{{ form_widget(form.hybride) }}</td>
+            </tr>
+        </tbody>
+    </table>
+<p>Si la ressource se déroule en mode projet, indiquez le temps de travail en autonomie des étudiants :</p>
+    <p>{{ form_widget(form.projetAutonomie) }}</p>
+    <p>Si la ressource permet de travailler les compétences transversales obligatoires, cochez les cases correspondantes :</p>
+
+    {{ form_row(form.ctProfessionnelle) }}
+    {{ form_row(form.ctInternationale) }}
+
+    {{ form_row(form.ctNumerique) }}
+    {{ form_row(form.ctRecherche) }}
+    {{ form_row(form.ctCollaboratif)}}
+
+
+    {{ form_row(form.save) }}
+{# form_end(form) #}
+    {{ form_end(form,{'render_rest': true}) }}
+{% endblock %}

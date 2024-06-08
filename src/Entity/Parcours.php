@@ -47,9 +47,16 @@ class Parcours
     #[ORM\ManyToMany(targetEntity: Niveau::class, mappedBy: 'parcours')]
     private Collection $niveaux;
 
+    /**
+     * @var Collection<int, UE>
+     */
+    #[ORM\ManyToMany(targetEntity: UE::class, mappedBy: 'parcours')]
+    private Collection $UEs;
+
     public function __construct()
     {
         $this->niveaux = new ArrayCollection();
+        $this->UEs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -183,6 +190,33 @@ class Parcours
     {
         if ($this->niveaux->removeElement($niveau)) {
             $niveau->removeParcours($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UE>
+     */
+    public function getUEs(): Collection
+    {
+        return $this->UEs;
+    }
+
+    public function addUE(UE $uE): static
+    {
+        if (!$this->UEs->contains($uE)) {
+            $this->UEs->add($uE);
+            $uE->addParcour($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUE(UE $uE): static
+    {
+        if ($this->UEs->removeElement($uE)) {
+            $uE->removeParcour($this);
         }
 
         return $this;

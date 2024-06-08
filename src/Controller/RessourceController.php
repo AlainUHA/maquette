@@ -4,7 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Mention;
 use App\Entity\Ressource;
-use App\Form\RessourceType;
+use App\Form\RessourceLType;
+use App\Form\RessourceMType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +29,13 @@ class RessourceController extends AbstractController
     public function creer(Mention $mention, Request $request, EntityManagerInterface $em): Response
     {
         $ressource = new Ressource();
-        $form = $this->createForm(RessourceType::class, $ressource);
+        if ($mention->getGrade()->getId() == 1 || $mention->getGrade()->getId() == 2)
+        {
+            $form = $this->createForm(RessourceLType::class, $ressource);
+        }
+        else {
+            $form = $this->createForm(RessourceMType::class, $ressource);
+        }
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $ressource->setMention($mention);
@@ -37,9 +44,51 @@ class RessourceController extends AbstractController
             $this->addFlash('success', 'Ressource créée avec succès');
             return $this->redirectToRoute('ressources.voir', ['id' => $mention->getId()]);
         }
-        return $this->render('ressource/creer.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        if ($mention->getGrade()->getId() == 1 || $mention->getGrade()->getId() == 2)
+        {
+            return $this->render('ressource/creerL.html.twig', [
+                'form' => $form->createView(),
+                'mention' => $mention,
+            ]);
+        }
+        else {
+            return $this->render('ressource/creerM.html.twig', [
+                'form' => $form->createView(),
+                'mention' => $mention,
+            ]);
+        }
+    }
+
+    #[Route('ressource/{id}/modifier', name: 'ressource.modifier')]
+    public function modifier(Ressource $ressource, Request $request, EntityManagerInterface $em): Response
+    {
+        $mention = $ressource->getMention();
+        if ($mention->getGrade()->getId() == 1 || $mention->getGrade()->getId() == 2)
+        {
+            $form = $this->createForm(RessourceLType::class, $ressource);
+        }
+        else {
+            $form = $this->createForm(RessourceMType::class, $ressource);
+        }
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            $this->addFlash('success', 'Ressource modifiée avec succès');
+            return $this->redirectToRoute('ressources.voir', ['id' => $ressource->getMention()->getId()]);
+        }
+        if ($mention->getGrade()->getId() == 1 || $mention->getGrade()->getId() == 2)
+        {
+            return $this->render('ressource/modifierL.html.twig', [
+                'form' => $form->createView(),
+                'mention' => $mention,
+            ]);
+        }
+        else {
+            return $this->render('ressource/modifierM.html.twig', [
+                'form' => $form->createView(),
+                'mention' => $mention,
+            ]);
+        }
     }
 
 }

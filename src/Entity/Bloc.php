@@ -16,7 +16,7 @@ class Bloc
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'bloc2')]
+    #[ORM\ManyToOne(inversedBy: 'blocs')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Mention $mention = null;
 

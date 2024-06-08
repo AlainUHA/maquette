@@ -5,14 +5,16 @@
 {% block body %}
     <h1>Les ressources</h1>
     <p><a class="btn btn-primary" href="{{ path('ressource.creer',{id:mention.id}) }}">Créer une ressource</a></p>
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Libellé</th>
+                <th>Commun Mention</th>
                 <th>CI</th>
                 <th>CM</th>
                 <th>TD</th>
                 <th>TP</th>
+                <th>Hybride</th>
                 <th>Projet Autonomie</th>
                 <th>Expr</th>
                 <th>TEDS</th>
@@ -32,10 +34,12 @@
             {% for ressource in ressources %}
                 <tr>
                     <td>{{ ressource.libelle }}</td>
+                    <td>{{ ressource.commun }}</td>
                     <td>{{ ressource.ci }}</td>
                     <td>{{ ressource.cm }}</td>
                     <td>{{ ressource.td }}</td>
                     <td>{{ ressource.tp }}</td>
+                    <td>{{ ressource.hybride }}</td>
                     <td>{{ ressource.projetAutonomie }}</td>
                     <td>{{ ressource.ctExpression }}</td>
                     <td>{{ ressource.ctTeds }}</td>
@@ -49,8 +53,7 @@
                     <td>{{ ressource.ctRecherche }}</td>
                     <td>{{ ressource.ctCollaboratif }}</td>
                     <td>
-                        <a href="{# path('ressource.voir', {'id': ressource.id}) #}">Voir</a>
-                        <a href="{# path('ressource.edit', {'id': ressource.id}) #}">Modifier</a>
+                        <a href="{{ path('ressource.modifier', {'id': ressource.id}) }}"><i class="bi bi-pencil-square" style="color:black;"></i></a>
                     </td>
                 </tr>
             {% endfor %}

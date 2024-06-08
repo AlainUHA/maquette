@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UE de la mention{% endblock %}
+
+{% block body %}
+    <h1>Liste des UE de la mention</h1>
+    <p>
+        <a class="btn btn-secondary" href="{{ path('mention.voir',{id:mention.id}) }}">Retour</a>
+    </p>
+    {% for bloc in blocs %}
+        <div class="card">
+            <div class="card-header">
+                <h2 id="bloc-{{ bloc.id }}">{{ bloc.libelle }}</h2>
+            </div>
+
+            <div class="card-body">
+                {% for competence in bloc.competences %}
+                    <p class="card-text">
+                    {% if competence.libelle is same as(NULL) %}
+                        <p class="small">Pas de compétences pour ce bloc <span class="badge bg-secondary">modèle LABSET</span></p>
+                    {% else %}
+                        <h3>{{ competence.libelle }}</h3>
+                    {% endif %}
+                    </p>
+                    <div class="card-group">
+                        {# dump(bloc.competences) #}
+
+                        {% for niveau in competence.niveaux %}
+                            <div class="card">
+                                <div class="card-header">
+                                    Niveau {{ niveau.niveau }} - {{ niveau.description }}
+                                </div>
+                                <div class="card-body">
+                                        <h5>Parcours :</h5>
+                                        <ul>
+                                            {% for parcours in niveau.parcours %}
+                                                <li>{{ parcours.titre }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                        <h5>UE :</h5>
+                                        <ul>
+                                            {% for ue in niveau.ues %}
+                                                <li>{{ ue.libelleUE }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    <a href="{{ path('ue.creer',{id:mention.id,id_niveau:niveau.id}) }}">Ajouter une UE</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+        <br />
+
+
+
+    {% endfor %}
+{% endblock %}
+{% block sidebar %}
+    <p>On construit ici l'ensemble des UE de la mention, tous parcours confondus.
+        Cela permet de créer les UE communes à différents parcours une seule fois.</p>
+{% endblock %}

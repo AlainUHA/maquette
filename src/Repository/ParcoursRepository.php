@@ -16,6 +16,15 @@ class ParcoursRepository extends ServiceEntityRepository
         parent::__construct($registry, Parcours::class);
     }
 
+    public function findByResp($user): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.resp = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Parcours[] Returns an array of Parcours objects
     //     */

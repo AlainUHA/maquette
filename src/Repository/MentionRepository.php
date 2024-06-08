@@ -25,6 +25,15 @@ class MentionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByUser($user): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.resp = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Mention[] Returns an array of Mention objects
     //     */

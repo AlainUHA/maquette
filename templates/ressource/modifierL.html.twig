@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ressource{% endblock %}
+
+{% block body %}
+    <h1>Modifier la ressource</h1>
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.libelle) }}
+    {{ form_row(form.commun) }}
+    {{ form_row(form.typologie) }}
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>CI</th>
+                <th>CM</th>
+                <th>TD</th>
+                <th>TP</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Volumes horaires :</td>
+                <td>{{ form_widget(form.ci) }}{{ form_errors(form.ci) }}</td>
+                <td>{{ form_widget(form.cm) }}</td>
+                <td>{{ form_widget(form.td) }}</td>
+                <td>{{ form_widget(form.tp) }}</td>
+                <td>{{ form_widget(form.hybride) }}</td>
+            </tr>
+        </tbody>
+    </table>
+<p>Si la ressource se déroule en mode projet, indiquez le temps de travail en autonomie des étudiants :</p>
+    <p>{{ form_widget(form.projetAutonomie) }}</p>
+    {% if mention.grade.id == 1 or mention.grade.id == 2  %}{# Si la mention est une licence ou une licence pro #}
+    <p>Si la ressource aborde les VSSH (Violences Sexuelles et Sexistes et Harcèlement) ou la TEDS (Transition Ecologique et Développement Soutenanble), cochez les cases :
+        </p>
+    {{ form_row(form.vssh) }}
+    {{ form_row(form.ctTeds) }}
+    {% endif %}
+    <p>Si la ressource permet de travailler les compétences transversales obligatoires, cochez les cases correspondantes :</p>
+
+    {{ form_row(form.ctExpression) }}
+    {{ form_row(form.ctMtu) }}
+    {{ form_row(form.ctNumeriquePix) }}
+    {{ form_row(form.ctInformationnelle) }}
+
+
+    {{ form_row(form.ctProfessionnelle) }}
+    {{ form_row(form.ctInternationale) }}
+
+    {{ form_row(form.save) }}
+{# form_end(form) #}
+    {{ form_end(form,{'render_rest': true}) }}
+{% endblock %}

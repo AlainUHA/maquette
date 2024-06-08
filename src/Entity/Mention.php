@@ -63,12 +63,19 @@ class Mention
     #[ORM\OneToMany(targetEntity: Ressource::class, mappedBy: 'mention')]
     private Collection $ressources;
 
+    /**
+     * @var Collection<int, UE>
+     */
+    #[ORM\OneToMany(targetEntity: UE::class, mappedBy: 'mention')]
+    private Collection $UEs;
+
     public function __construct()
     {
         $this->accesMentions = new ArrayCollection();
         $this->parcours = new ArrayCollection();
         $this->blocs = new ArrayCollection();
         $this->ressources = new ArrayCollection();
+        $this->UEs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -281,6 +288,36 @@ class Mention
             // set the owning side to null (unless already changed)
             if ($ressource->getMention() === $this) {
                 $ressource->setMention(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UE>
+     */
+    public function getUEs(): Collection
+    {
+        return $this->UEs;
+    }
+
+    public function addUE(UE $uE): static
+    {
+        if (!$this->UEs->contains($uE)) {
+            $this->UEs->add($uE);
+            $uE->setMention($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUE(UE $uE): static
+    {
+        if ($this->UEs->removeElement($uE)) {
+            // set the owning side to null (unless already changed)
+            if ($uE->getMention() === $this) {
+                $uE->setMention(null);
             }
         }
 

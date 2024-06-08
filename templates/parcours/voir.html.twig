@@ -3,7 +3,8 @@
 {% block title %}Parcours{% endblock %}
 
 {% block body %}
-    <h1>{{ parcours.titre }}</h1>
+    <h1>Mon parcours</h1>
+    <h2>{{ parcours.titre }}</h2>
     <p><a class="btn btn-secondary" href="{{ path('mention.voir',{id:parcours.mention.id}) }}">Retour</a></p>
     <p>Responsable : {{ parcours.resp.prenom }} {{ parcours.resp.nom }}</p>
     <p>Référent du parcours étudiant : {{ parcours.referent }}</p>

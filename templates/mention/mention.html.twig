@@ -3,18 +3,22 @@
 {% block title %}Liste des mentions{% endblock %}
 
 {% block body %}
-        <h1>{{ mention.grade.grade }} {{ mention.titre }}</h1>
+    <h1>Ma mention</h1>
+    <h2>{{ mention.grade.grade }} {{ mention.titre }}</h2>
     <p><a class="btn btn-primary" href="{{ path('parcours.creer',{id:mention.id}) }}">Créer un parcours</a>
         <a class="btn btn-primary" href="{{ path('blocs.voir',{id:mention.id}) }}">Gérer les blocs</a>
         <a class="btn btn-primary" href="{{ path('ressources.voir',{id:mention.id}) }}">Gérer les ressources</a>
+        <a class="btn btn-primary" href="{{ path('ues.voir',{id:mention.id}) }}">Gérer les UE</a>
         <a class="btn btn-secondary" href="{{ path('mentions.voir') }}">Retour</a>
     </p>
+    <p>Les blocs, ressources, UE de tous les parcours doivent être créés depuis cette page. Cliquer sur "Aide" pour plus d'infos.</p>
     <p><strong>Responsable :</strong> {{ mention.resp.prenom }} {{ mention.resp.nom }}</p>
     <p><strong>Fiche RNCP :</strong> {{ mention.rncp }} <a href="https://www.francecompetences.fr/recherche/rncp/{{ mention.rncp }}/"> (voir)</a></p>
     <p><strong>Parcours de cette mention :</strong></p>
     {% if parcours is empty %}
         <p>Aucun parcours pour cette mention</p>
     {% else %}
+        <p>Cliquez sur les icônes de la colonne "actions" pour modifier un parcours.</p>
         <table class="table">
         <thead>
         <tr>
@@ -50,8 +54,13 @@
 {% endblock %}
 
 {% block sidebar %}
-    <p>Cette page affiche les paramètres de la mention : le nom du responsable, la fiche RNCP, les parcours de cette mention.</p>
-<p>Pour créer le référentiel de chaque parcours, vous devez d'abord créer les blocs de compétences.
+    <p>Cette page affiche les paramètres de la mention : le nom du responsable, la fiche RNCP, les parcours de cette mention, le référentiel, les ressources, les UE,....</p>
+<h2>Le référentiel</h2>
+    <p>Pour créer le référentiel de chaque parcours, vous devez d'abord créer les blocs de compétences.
     Créez tous les blocs de tous les parcours dans cette page de la mention. Cela permet de ne saisir les blocs communs à plusieurs parcours qu'une fois.</p>
     <p>Vous pourrez ensuite afficher les référentiels de chaque parcours.</p>
+    <h2>Les ressources</h2>
+    <p>Créez toutes les ressources de tous les parcours sur cette page de la mention. Cela permet de saisir les ressources communes une seule fois.</p>
+    <h2>Les UE</h2>
+    <p>Créez toutes les UE de tous les parcours sur cette page de la mention.</p>
 {% endblock %}
