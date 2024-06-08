@@ -13,7 +13,7 @@
             </div>
             <div class="card-body">
             {% for competence in bloc.competences %}
-                <p class="card-text">{{ competence.libelle }}</p>
+                <p class="card-text mt-2"><strong>{{ competence.libelle }}</strong></p>
                     <div class="card-group">
                     {% for n in competence.niveaux %}
                         {% for np in niveaux %}
