@@ -4,6 +4,9 @@
 
 {% block body %}
     <h1>Créer une ressource</h1>
+    <p>
+        <a class="btn btn-secondary" href="{{ path('ressources.voir',{id:mention.id}) }}">Retour</a>
+    </p>
 {{ form_start(form) }}
     {{ form_errors(form) }}
     {{ form_row(form.libelle) }}

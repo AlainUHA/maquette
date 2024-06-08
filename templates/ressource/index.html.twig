@@ -4,7 +4,10 @@
 
 {% block body %}
     <h1>Les ressources</h1>
-    <p><a class="btn btn-primary" href="{{ path('ressource.creer',{id:mention.id}) }}">Créer une ressource</a></p>
+    <p>
+        <a class="btn btn-primary" href="{{ path('ressource.creer',{id:mention.id}) }}">Créer une ressource</a>
+        <a class="btn btn-secondary" href="{{ path('mention.voir',{id:mention.id}) }}">Retour</a>
+    </p>
     <table class="table table-bordered">
         <thead>
             <tr>

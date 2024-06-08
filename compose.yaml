@@ -3,6 +3,7 @@ services:
   ###> doctrine/doctrine-bundle ###
   db_maquette:
     image: mariadb:latest
+    restart: always
     volumes:
       - database_data:/var/lib/mysql
     ports:
@@ -18,6 +19,7 @@ services:
 
   maquette:
     build: .
+    restart: always
     volumes:
       - .:/var/www/
     ports:
