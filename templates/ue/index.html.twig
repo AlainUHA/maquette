@@ -40,7 +40,7 @@
                                         <h5>UE :</h5>
                                         <ul>
                                             {% for ue in niveau.ues %}
-                                                <li>{{ ue.libelleUE }}</li>
+                                                <li><a href="{{ path('ue.modifier',{id:ue.id}) }}">{{ ue.libelleUE }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     <a href="{{ path('ue.creer',{id:mention.id,id_niveau:niveau.id}) }}">Ajouter une UE</a>

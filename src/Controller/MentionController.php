@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Mention;
+use App\Entity\Utilisateur;
 use App\Form\MentionType;
 use App\Repository\MentionRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,9 +17,25 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class MentionController extends AbstractController
 {
     #[Route('/mentions', name: 'mentions.voir', requirements: ['id' => '\d+'])]
-    public function VoirMentions(Request $request,MentionRepository $repository, EntityManagerInterface $em): Response
+    public function VoirMentions(MentionRepository $repository): Response
     {
-        $mentions = $em->getRepository(Mention::class)->findAll();
+        /** @var Utilisateur $utilisateur */
+        $utilisateur = $this->getUser();
+        //On cherche les mentions auxquelles on a accès à partir de l'utilisateur connecté
+        //les ADMIN accèdent à tout
+        //les responsables de mentions et de parcours accèdent à la mention
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
+        if ($isAdmin) {
+            $mentions = $repository->findAll();
+        } else {
+            $mentions = $utilisateur->getMentions();
+            if (count($mentions) == 0){
+                $parcours = $utilisateur->getParcours();
+                foreach ($parcours as $p){
+                    $mentions[] = $p->getMention();
+                }
+            }
+        }
         return $this->render('mention/index.html.twig', [
             'controller_name' => 'MentionController',
             'mentions' => $mentions,
@@ -29,6 +46,12 @@ class MentionController extends AbstractController
     public function VoirMention(int $id, MentionRepository $repository): Response
     {
         $mention = $repository->find($id);
+        /** @var Utilisateur $utilisateur */
+        $utilisateur = $this->getUser();
+        if (!$this->estMentionAutorisee($utilisateur, $mention)) {
+            $this->addFlash('danger', 'Vous n\'avez pas accès à cette mention');
+            return $this->redirectToRoute('mentions.voir');
+        }
         $parcours = $mention->getParcours();
         return $this->render('mention/mention.html.twig', [
             'controller_name' => 'MentionController',
@@ -81,5 +104,28 @@ class MentionController extends AbstractController
         $em->flush();
         $this->addFlash('success', 'Mention supprimée avec succès');
         return $this->redirectToRoute('mentions.voir');
+    }
+
+    private function estMentionAutorisee(Utilisateur $utilisateur, Mention $mention): bool
+    {
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
+        if ($isAdmin) {
+            return true;
+        }
+        $mentions = $utilisateur->getMentions();
+        foreach ($mentions as $m){
+            if ($m === $mention){
+                return true;
+            }
+        }
+        if (count($mentions) == 0){
+            $parcours = $utilisateur->getParcours();
+            foreach ($parcours as $p){
+                if ($p->getMention() === $mention){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

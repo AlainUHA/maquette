@@ -6,15 +6,21 @@
     <h1>Saisie des maquettes</h1>
 
 <p>Ce site permet de saisir les maquettes pour l'accréditation 2024-2028</p>
-    <p><a href="{{ path('mentions.voir') }}">Voir les mentions</a> auxquelles j'ai accès.</p>
-   <h3>Les mentions dont je suis responsable :</h3>
+    <h3>Les mentions auxquelles j'ai accès :</h3>
+    <p><a href="{{ path('mentions.voir') }}">Voir</a></p>
+    <p><a href="{{ path('mention.creer') }}">Créer une mention</a></p>
+   {% if mentions|length >0 %}
+    <h3>La mention dont je suis responsable :</h3>
 {%for mention in mentions %}
     <p><a href="{{ path('mention.voir',{id:mention.id}) }}">{{ mention.titre }}</a></p>
 {% endfor %}
-    <h3>Les parcours dont je suis responsable :</h3>
+   {% endif %}
+    {% if parcours|length >0 %}
+    <h3>Le parcours dont je suis responsable :</h3>
     {%for p in parcours %}
         <p><a href="{{ path('p.voir',{id:p.id}) }}">{{ p.titre }}</a></p>
     {% endfor %}
+    {% endif %}
 
     <h3>Ressources utiles :</h3>
     <ul>

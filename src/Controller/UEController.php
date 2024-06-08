@@ -53,4 +53,24 @@ class UEController extends AbstractController
             'mention' => $mention,
         ]);
     }
+
+    #[Route('ue/{id}/modifier', name: 'ue.modifier')]
+    public function modifierUE(UE $ue, Request $request, EntityManagerInterface $em): Response
+    {
+        $mention = $ue->getMention();
+        $options = [
+            'mention' => $mention,
+        ];
+        $form = $this->createForm(UeType::class, $ue,$options);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            return $this->redirectToRoute('ues.voir', ['id' => $ue->getMention()->getId()]);
+        }
+        return $this->render('ue/modifier.html.twig', [
+            'controller_name' => 'UEController',
+            'form' => $form->createView(),
+            'mention' => $ue->getMention(),
+        ]);
+    }
 }

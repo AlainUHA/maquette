@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer UE{% endblock %}
+
+{% block body %}
+<h1>Modifier une UE</h1>
+<p>
+    <a class="btn btn-secondary" href="{{ path('ues.voir',{id:mention.id}) }}">Retour</a>
+{{ form(form) }}
+
+{% endblock %}
+{% block sidebar %}
+    <p>Vous pouvez commencer en complétant uniquement les premiers champs. Vous pourrez revenir dans cette page au fur et à mesure de l'avancée de la construction de la maquette.</p>
+{% endblock %}
