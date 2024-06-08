@@ -88,10 +88,11 @@ class ParcoursController extends AbstractController
         $blocs = [];
         $competences = [];
         foreach ($niveaux as $niveau) {
+            if (!in_array($niveau->getCompetence()->getBloc(), $blocs))
+                $blocs[] = $niveau->getCompetence()->getBloc();
             if (!in_array($niveau->getCompetence(), $competences))
                 {
                     $competences[] = $niveau->getCompetence();
-                    $blocs[] = $niveau->getCompetence()->getBloc();
                 }
         }
         return $this->render('parcours/referentiel.html.twig', [
