@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ApprentissageCritiqueRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApprentissageCritiqueRepository::class)]
@@ -13,7 +14,7 @@ class ApprentissageCritique
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: TYPES::TEXT)]
     private ?string $libelle = null;
 
     #[ORM\ManyToOne(inversedBy: 'apprentissagesCritiques')]
