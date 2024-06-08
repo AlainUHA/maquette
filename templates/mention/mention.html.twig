@@ -16,7 +16,7 @@
     <p><strong>Fiche RNCP :</strong> {{ mention.rncp }} <a href="https://www.francecompetences.fr/recherche/rncp/{{ mention.rncp }}/"> (voir)</a></p>
     <p><strong>Parcours de cette mention :</strong></p>
     {% if parcours is empty %}
-        <p>Aucun parcours pour cette mention</p>
+        <p>Aucun parcours pour cette mention. Si votre mention ne comporte pas de parcours, créez un parcours portant le même nom que la mention.</p>
     {% else %}
         <p>Cliquez sur les icônes de la colonne "actions" pour modifier un parcours.</p>
         <table class="table">
