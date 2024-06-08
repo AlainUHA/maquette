@@ -55,6 +55,13 @@ class UEType extends AbstractType
                 'class' => Ressource::class,
                 'choice_label' => 'libelle',
                 'multiple' => true,
+                'expanded' => true,
+                'query_builder' => function ($er) use ($options){
+                    return $er->createQueryBuilder('r')
+                        ->orderBy('r.libelle', 'ASC')
+                        ->where('r.mention = :mention')
+                        ->setParameter('mention', $options['mention']);
+                        }
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer',
