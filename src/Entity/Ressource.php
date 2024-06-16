@@ -87,6 +87,9 @@ class Ressource
     #[ORM\JoinColumn(nullable: false)]
     private ?Typologie $typologie = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $niveau = null;
+
     public function __construct()
     {
         $this->UEs = new ArrayCollection();
@@ -379,6 +382,18 @@ class Ressource
     public function setTypologie(?Typologie $typologie): static
     {
         $this->typologie = $typologie;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?int
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?int $niveau): static
+    {
+        $this->niveau = $niveau;
 
         return $this;
     }

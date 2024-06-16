@@ -56,6 +56,9 @@ class UE
     #[ORM\ManyToMany(targetEntity: Parcours::class, inversedBy: 'UEs')]
     private Collection $parcours;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $semestre = null;
+
     public function __construct()
     {
         $this->ressources = new ArrayCollection();
@@ -226,6 +229,18 @@ class UE
     public function removeParcour(Parcours $parcour): static
     {
         $this->parcours->removeElement($parcour);
+
+        return $this;
+    }
+
+    public function getSemestre(): ?int
+    {
+        return $this->semestre;
+    }
+
+    public function setSemestre(?int $semestre): static
+    {
+        $this->semestre = $semestre;
 
         return $this;
     }
