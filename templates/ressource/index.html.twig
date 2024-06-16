@@ -12,6 +12,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>Actions</th>
                 <th>Libellé</th>
                 <th>Niv</th>
                 <th>Typologie</th>
@@ -21,24 +22,26 @@
                 <th>TD</th>
                 <th>TP</th>
                 <th>Hybride</th>
-                <th>Projet Autonomie</th>
+                <th>Projet</th>
                 <th>Expr</th>
                 <th>TEDS</th>
                 <th>MTU</th>
                 <th>Pro</th>
-                <th>Internationale</th>
+                <th>Inter.</th>
                 <th>PIX</th>
-                <th>Informationnelle</th>
+                <th>Info.</th>
                 <th>VSSH</th>
                 <th>Num</th>
-                <th>Recherche</th>
+                <th>Rech.</th>
                 <th>Collab</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             {% for ressource in ressources %}
                 <tr>
+                    <td>
+                        <a href="{{ path('ressource.modifier', {'id': ressource.id}) }}"><i class="bi bi-pencil-square" style="color:black;"></i></a>
+                    </td>
                     <td>{{ ressource.libelle }}</td>
                     <td>{{ ressource.niveau }}</td>
                     <td>{{ ressource.typologie.libelle }}</td>
@@ -113,9 +116,6 @@
                     {% else %}
                         <td></td>
                     {% endif %}
-                    <td>
-                        <a href="{{ path('ressource.modifier', {'id': ressource.id}) }}"><i class="bi bi-pencil-square" style="color:black;"></i></a>
-                    </td>
                 </tr>
             {% endfor %}
         </tbody>
