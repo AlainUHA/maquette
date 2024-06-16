@@ -39,24 +39,77 @@
                 <tr>
                     <td>{{ ressource.libelle }}</td>
                     <td>{{ ressource.niveau }}</td>
-                    <td>{{ ressource.commun }}</td>
+                    {%  if ressource.commun == 1 %}
+                    <td class="bg-success"></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                     <td>{{ ressource.ci }}</td>
                     <td>{{ ressource.cm }}</td>
                     <td>{{ ressource.td }}</td>
                     <td>{{ ressource.tp }}</td>
-                    <td>{{ ressource.hybride }}</td>
+                    {%  if ressource.hybride == 1 %}
+                        <td class="bg-success"></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
                     <td>{{ ressource.projetAutonomie }}</td>
-                    <td>{{ ressource.ctExpression }}</td>
-                    <td>{{ ressource.ctTeds }}</td>
-                    <td>{{ ressource.ctMtu }}</td>
-                    <td>{{ ressource.ctProfessionnelle }}</td>
-                    <td>{{ ressource.ctInternationale }}</td>
-                    <td>{{ ressource.ctNumeriquePix }}</td>
-                    <td>{{ ressource.ctInformationnelle }}</td>
-                    <td>{{ ressource.vssh }}</td>
-                    <td>{{ ressource.ctNumerique }}</td>
-                    <td>{{ ressource.ctRecherche }}</td>
-                    <td>{{ ressource.ctCollaboratif }}</td>
+
+                    {%  if ressource.ctExpression == 1 %}
+                        <td class="bg-success"></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {%  if ressource.ctTeds == 1 %}
+                        <td class="bg-success"></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {%  if ressource.ctMtu == 1 %}
+                        <td class="bg-success"></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {%  if ressource.ctProfessionnelle == 1 %}
+                        <td class="bg-success"></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {%  if ressource.ctInternationale == 1 %}
+                        <td class="bg-success"></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {%  if ressource.ctNumeriquePix == 1 %}
+                        <td class="bg-success"></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {%  if ressource.ctInformationnelle == 1 %}
+                        <td class="bg-success"></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {%  if ressource.vssh == 1 %}
+                        <td class="bg-success"></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {%  if ressource.ctNumerique == 1 %}
+                        <td class="bg-success"></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {%  if ressource.ctRecherche == 1 %}
+                        <td class="bg-success"></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {%  if ressource.ctCollaboratif == 1 %}
+                        <td class="bg-success"></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
                     <td>
                         <a href="{{ path('ressource.modifier', {'id': ressource.id}) }}"><i class="bi bi-pencil-square" style="color:black;"></i></a>
                     </td>
