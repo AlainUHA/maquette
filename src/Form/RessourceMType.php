@@ -20,6 +20,13 @@ class RessourceMType extends AbstractType
             ->add('libelle', null, [
                 'label' => 'Libellé',
             ])
+            ->add('niveau', null, [
+                'label' => 'Niveau',
+                'attr' => ['class' => 'w200'],
+                'required'=> true,
+                'help' => 'Niveau de la compétence que cette ressource permet d\'acquérir.
+                 Sert à filtrer les ressources dans le formulaire de saisie des UE.'
+            ])
             ->add('commun', null, [
                 'label' => 'Commun Mention',
                 'help' => 'Cette ressource est commune à TOUS les parcours de la mention'

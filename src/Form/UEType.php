@@ -22,6 +22,9 @@ class UEType extends AbstractType
             ->add('libelleUE',  null, [
                 'label' => 'Libellé',
             ])
+            ->add('semestre', null, [
+                'label' => 'Semestre',
+            ])
             ->add('ects', null, [
                 'label' => 'ECTS',
             ])
