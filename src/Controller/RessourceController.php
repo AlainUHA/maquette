@@ -96,19 +96,15 @@ class RessourceController extends AbstractController
     {
         //$file = $request->files->get('fichier');
         $fichier = fopen('ressources.csv', 'r');
-        //$em->beginTransaction();
         $typologie = $em->getRepository(Typologie::class)->findOneBy(['libelle' => 'Socle']);
-        //$ressources = [];
         while ($ligne = fgetcsv($fichier, 0, ';')) {
             $ressource = new Ressource();
             $ressource->setMention($mention);
             $ressource->setLibelle($ligne[0]);
             $ressource->setTypologie($typologie);
-            $ressources[] = $ligne;
             $em->persist($ressource);
             $em->flush();
         }
-        //dd($ressources);
 
         $this->addFlash('success', 'Ressources importées avec succès');
         return $this->redirectToRoute('ressources.voir', ['id' => $mention->getId()]);
