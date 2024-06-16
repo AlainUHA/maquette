@@ -12,6 +12,7 @@
         <thead>
             <tr>
                 <th>Libellé</th>
+                <th>Niv</th>
                 <th>Commun Mention</th>
                 <th>CI</th>
                 <th>CM</th>
@@ -37,6 +38,7 @@
             {% for ressource in ressources %}
                 <tr>
                     <td>{{ ressource.libelle }}</td>
+                    <td>{{ ressource.niveau }}</td>
                     <td>{{ ressource.commun }}</td>
                     <td>{{ ressource.ci }}</td>
                     <td>{{ ressource.cm }}</td>
