@@ -62,8 +62,9 @@ class UEType extends AbstractType
                 'query_builder' => function ($er) use ($options){
                     return $er->createQueryBuilder('r')
                         ->orderBy('r.libelle', 'ASC')
-                        ->where('r.mention = :mention')
-                        ->setParameter('mention', $options['mention']);
+                        ->where('r.mention = :mention', 'r.niveau = :niveau')
+                        ->setParameter('mention', $options['mention'])
+                        ->setParameter('niveau', $options['niveau']);
                         }
             ])
             ->add('save', SubmitType::class, [
@@ -77,7 +78,8 @@ class UEType extends AbstractType
         $resolver->setDefaults([
             'data_class' => UE::class,
             'mention' => '',
-            'niveau_id' => '',
+            'niveau' => '',
+
         ]);
     }
 }

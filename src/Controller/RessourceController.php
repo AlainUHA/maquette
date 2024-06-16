@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class RessourceController extends AbstractController
 {
@@ -91,6 +92,7 @@ class RessourceController extends AbstractController
             ]);
         }
     }
+    #[isGranted('ROLE_ADMIN')]
     #[Route('mention/{id}/ressources/importer', name: 'ressources.importer')]
     public function importerRessources(Mention $mention, EntityManagerInterface $em): Response
     {

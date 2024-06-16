@@ -29,10 +29,12 @@ class UEController extends AbstractController
     public function creerUE(Mention $mention, int $id_niveau, Request $request, EntityManagerInterface $em): Response
     {
         $ue = new UE();
+        $niveau = $em->getRepository(Niveau::class)->find($id_niveau);
         $options = [
             'mention' => $mention,
+            'niveau' => $niveau->getNiveau(),
         ];
-        $niveau = $em->getRepository(Niveau::class)->find($id_niveau);
+
 
         $form = $this->createForm(UeType::class, $ue,$options);
         $form->handleRequest($request);
