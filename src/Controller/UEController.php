@@ -60,8 +60,10 @@ class UEController extends AbstractController
     public function modifierUE(UE $ue, Request $request, EntityManagerInterface $em): Response
     {
         $mention = $ue->getMention();
+        $niveau = $ue->getNiveau();
         $options = [
             'mention' => $mention,
+            'niveau' => $niveau->getNiveau(),
         ];
         $form = $this->createForm(UeType::class, $ue,$options);
         $form->handleRequest($request);
